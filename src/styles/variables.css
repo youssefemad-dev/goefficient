@@ -1,0 +1,25 @@
+:root {
+    /* Colors */
+    --primary-color: #3f3bce;
+    --secondary-color: #E7E0FF;
+  --accent-color: #ffd166;
+    --bg-color: #FBFAFF;
+     --text-color: #272525; /* for pragraphs also */
+  --light-text: #777;
+  --card-bg: #ffffff;
+  --border-color: #e5e7eb;
+
+    /* Fonts */
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+  /* Shadows */
+  --shadow-light: 0px 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0px 4px 12px rgba(0, 0, 0, 0.1);
+
+  /* Border radius */
+  --radius: 12px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease-in-out;
+}
