@@ -2,12 +2,10 @@
     /* Colors */
     --primary-color: #3f3bce;
     --secondary-color: #E7E0FF;
-  --accent-color: #ffd166;
     --bg-color: #FBFAFF;
-     --text-color: #272525; /* for pragraphs also */
-  --light-text: #777;
-  --card-bg: #ffffff;
-  --border-color: #e5e7eb;
+    --heading-text-color: #3f3bce; 
+    --body-text-color: #49495A;
+
 
     /* Fonts */
     --font-heading: 'Poppins', sans-serif;
