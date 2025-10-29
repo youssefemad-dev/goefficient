@@ -66,22 +66,6 @@ export default function MusicPlayer() {
         .volume-range::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: #3f3bce; border: none; }
         .volume-range:focus { outline: none; }
 
-        /* Play/Pause button styling: default purple background with white icon,
-           on hover show white background and purple icon */
-        .play-btn {
-          background-color: #3f3bce !important;
-          color: #fff !important;
-          border: none !important;
-          transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
-        }
-        .play-btn svg { display: block; }
-        .play-btn:hover, .play-btn:focus {
-          background-color: #fff !important;
-          color: #3f3bce !important;
-          /* non-shifting outline using box-shadow */
-          box-shadow: 0 0 0 1px rgba(63,59,206,1);
-        }
-
         /* Prev/Next control button styling */
         .ctrl-btn {
           background-color: transparent !important;
@@ -189,12 +173,13 @@ export default function MusicPlayer() {
               </svg>
             </button>
             <button
-              className="btn rounded-circle d-flex align-items-center justify-content-center play-btn"
+              className="btn btn-primary rounded-circle d-flex align-items-center justify-content-center"
               onClick={togglePlay}
               style={{
                 width: "48px",
                 height: "48px",
                 padding: 0,
+                backgroundColor: "#3f3bce",
               }}
             >
               {isPlaying ? (
