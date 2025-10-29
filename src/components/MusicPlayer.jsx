@@ -72,12 +72,13 @@ export default function MusicPlayer() {
           color: #3f3bce !important;
           border-color: #3f3bce !important;
         }
-        .ctrl-btn svg { display: block; }
-        .ctrl-btn:hover, .ctrl-btn:focus {
-          background-color: #3f3bce !important;
-          color: #fff !important;
-          border-color: #3f3bce !important;
-        }
+          .ctrl-btn svg { display: block; }
+          /* Hover: swap to white background and purple icon */
+          .ctrl-btn:hover {
+            background-color: #3f3bce !important;
+            color: #fff !important;
+            border-color: #3f3bce !important;
+          }
       `}</style>
 
       <div
