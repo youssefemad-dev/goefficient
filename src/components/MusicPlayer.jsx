@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { FaPlay, FaPause, FaVolumeUp, FaVolumeMute } from "react-icons/fa";
+import {
+  FaPlay,
+  FaPause,
+  FaVolumeUp,
+  FaVolumeMute,
+  FaArrowUp,
+  FaArrowDown,
+  FaMusic,
+} from "react-icons/fa";
 import { useMusic } from "../context/MusicContext";
 
 export default function MusicPlayer() {
@@ -36,7 +44,7 @@ export default function MusicPlayer() {
           height: 40,
           borderRadius: "50%",
           border: "none",
-          backgroundColor: "#0d6efd",
+          backgroundColor: "#3f3bce",
           color: "#fff",
           display: "flex",
           alignItems: "center",
@@ -45,21 +53,68 @@ export default function MusicPlayer() {
           cursor: "pointer",
         }}
       >
-        {collapsed ? "▲" : "▼"}
+        {collapsed ? <FaArrowUp /> : <FaArrowDown />}
       </button>
 
+      <style>{`
+        /* Use the input's background (gradient) for the filled track. Hide native track backgrounds so gradient is visible */
+        .volume-range { appearance: none; -webkit-appearance: none; background: transparent; }
+        .volume-range::-webkit-slider-runnable-track { height: 6px; background: transparent; border-radius: 999px; }
+        .volume-range::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #3f3bce; margin-top: -3px; box-shadow: 0 0 0 4px rgba(63,59,206,0.12); }
+        /* Firefox: make native track transparent so input background gradient shows */
+        .volume-range::-moz-range-track { height: 6px; background: transparent; border-radius: 999px; }
+        .volume-range::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: #3f3bce; border: none; }
+        .volume-range:focus { outline: none; }
+
+        /* Play/Pause button styling: default purple background with white icon,
+           on hover show white background and purple icon */
+        .play-btn {
+          background-color: #3f3bce !important;
+          color: #fff !important;
+          border: none !important;
+          transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+        }
+        .play-btn svg { display: block; }
+        .play-btn:hover, .play-btn:focus {
+          background-color: #fff !important;
+          color: #3f3bce !important;
+          /* non-shifting outline using box-shadow */
+          box-shadow: 0 0 0 1px rgba(63,59,206,1);
+        }
+
+        /* Prev/Next control button styling */
+        .ctrl-btn {
+          background-color: transparent !important;
+          color: #3f3bce !important;
+          border-color: #3f3bce !important;
+        }
+        .ctrl-btn svg { display: block; }
+        .ctrl-btn:hover, .ctrl-btn:focus {
+          background-color: #3f3bce !important;
+          color: #fff !important;
+          border-color: #3f3bce !important;
+        }
+      `}</style>
+
       <div
-        className="fixed-bottom w-100 bg-white shadow-sm"
+        className="fixed-bottom w-100 shadow-sm"
         style={{
           transform: collapsed ? "translateY(100%)" : "translateY(0)",
           transition: "transform 240ms ease",
           borderTop: "1px solid rgba(0,0,0,0.06)",
           zIndex: 1050,
+          backgroundColor: "var(--bg-color)",
         }}
       >
         <div
           className="d-flex align-items-center justify-content-between h-100 container"
-          style={{ height: 64 }}
+          style={{
+            height: 64,
+            position: "relative",
+            paddingLeft: "160px",
+            paddingRight: "160px",
+            padding: "12px 0",
+          }}
         >
           <div
             className="d-flex align-items-center"
@@ -68,23 +123,58 @@ export default function MusicPlayer() {
           >
             <div
               style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 8,
                 overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
               }}
             >
-              <strong style={{ fontSize: "0.95rem" }}>
-                {tracks[currentTrack].title}
-              </strong>
-              <div className="text-muted" style={{ fontSize: "0.8rem" }}>
-                {tracks[currentTrack].artist}
+              <FaMusic
+                style={{
+                  color: "#3f3bce",
+                  flex: "0 0 auto",
+                  marginTop: "4px",
+                  marginRight: "2px",
+                }}
+                size={25}
+              />
+              <div
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                <strong
+                  style={{
+                    fontSize: "0.95rem",
+                    display: "block",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    color: "var(--body-text-color)",
+                  }}
+                >
+                  {tracks[currentTrack].title}
+                </strong>
+                <div className="text-muted" style={{ fontSize: "0.8rem" }}>
+                  {tracks[currentTrack].artist}
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="d-flex align-items-center gap-3">
+          <div
+            style={{
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+            }}
+          >
             <button
-              className="btn btn-outline-secondary btn-sm"
+              className="btn btn-outline-secondary btn-sm ctrl-btn"
               onClick={handlePrevious}
             >
               <svg
@@ -92,16 +182,20 @@ export default function MusicPlayer() {
                 width="25"
                 height="25"
                 fill="currentColor"
-                class="bi bi-caret-left-fill"
+                className="bi bi-caret-left-fill"
                 viewBox="0 0 16 16"
               >
                 <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
               </svg>
             </button>
             <button
-              className="btn btn-primary rounded-circle d-flex align-items-center justify-content-center"
+              className="btn rounded-circle d-flex align-items-center justify-content-center play-btn"
               onClick={togglePlay}
-              style={{ width: "48px", height: "48px", padding: 0 }}
+              style={{
+                width: "48px",
+                height: "48px",
+                padding: 0,
+              }}
             >
               {isPlaying ? (
                 <FaPause size={20} />
@@ -110,7 +204,7 @@ export default function MusicPlayer() {
               )}
             </button>
             <button
-              className="btn btn-outline-secondary btn-sm"
+              className="btn btn-outline-secondary btn-sm ctrl-btn"
               onClick={handleNext}
             >
               <svg
@@ -118,7 +212,7 @@ export default function MusicPlayer() {
                 width="25"
                 height="25"
                 fill="currentColor"
-                class="bi bi-play-fill"
+                className="bi bi-play-fill"
                 viewBox="0 0 16 16"
               >
                 <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393" />
@@ -129,18 +223,30 @@ export default function MusicPlayer() {
           <div className="d-flex align-items-center" style={{ minWidth: 120 }}>
             <button className="btn  btn-sm me-2" onClick={toggleMute}>
               {isMuted || volume === 0 ? (
-                <FaVolumeMute size={19} />
+                <FaVolumeMute
+                  size={19}
+                  style={{ color: "var(--body-text-color)" }}
+                />
               ) : (
-                <FaVolumeUp size={19} />
+                <FaVolumeUp
+                  size={19}
+                  style={{ color: "var(--body-text-color)" }}
+                />
               )}
             </button>
             <input
               type="range"
+              className="volume-range"
               min={0}
               max={100}
               value={isMuted ? 0 : volume}
               onChange={(e) => handleVolumeChange(e.target.value)}
-              style={{ width: 100 }}
+              style={{
+                width: 100,
+                background: `linear-gradient(to right, #3f3bce ${
+                  isMuted ? 0 : volume
+                }%, #e9e9ef ${isMuted ? 0 : volume}%)`,
+              }}
             />
           </div>
 

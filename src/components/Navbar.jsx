@@ -17,7 +17,6 @@ export default function Navbar() {
           <li className="nav-item"><Link className="nav-link link" to="/habits">Habits</Link></li>
           <li className="nav-item"><Link className="nav-link link" to="/notes">Notes</Link></li>
           <li className="nav-item"><Link className="nav-link link" to="/streaks">Streaks</Link></li>
-          <li className="nav-item"><Link className="nav-link link" to="/focus-music">Focus Music</Link></li>
         </ul>
       </div>
     </nav>
