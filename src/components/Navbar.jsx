@@ -12,7 +12,7 @@ export default function Navbar() {
       </button>
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav ms-auto">
-          <li className="nav-item"><Link className="nav-link link" to="/pomodoro">Pomodoro</Link></li>
+          <li className="nav-item"><Link className="nav-link link" to="/timer">Pomodoro</Link></li>
           <li className="nav-item"><Link className="nav-link link" to="/todo">To-Do List</Link></li>
           <li className="nav-item"><Link className="nav-link link" to="/habits">Habits</Link></li>
           <li className="nav-item"><Link className="nav-link link" to="/notes">Notes</Link></li>

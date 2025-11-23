@@ -5,7 +5,7 @@ import Home from "./pages/Home.jsx";
 import Navbar from "./components/Navbar.JSX";
 import MusicPlayer from "./components/MusicPlayer.jsx";
 import { MusicProvider } from "./context/MusicContext";
-
+import PomodoroTime from "./pages/timer.jsx";
 function App() {
   return (
     <MusicProvider>
@@ -13,6 +13,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/timer" element={<PomodoroTime />} />
         </Routes>
         <MusicPlayer />
       </div>
