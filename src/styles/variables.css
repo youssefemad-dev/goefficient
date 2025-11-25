@@ -1,0 +1,24 @@
+ :root {
+  /* Your variables */
+  --primary-color: #3f3bce;
+  --secondary-color: #E7E0FF;
+  --bg-color: #FBFAFF; /* used it for nav */
+  --bg-page-color: #f6f7fd;
+  --heading-text-color: #3f3bce; 
+  --body-text-color: #49495A;
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --shadow-light: 0px 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  --radius: 12px;
+  --transition-fast: 0.2s ease-in-out;
+
+   /*Bootstrap variable overrides */
+  --bs-primary: var(--primary-color);
+  --bs-secondary: var(--secondary-color);
+  --bs-body-bg: var(--bg-color);
+  --bs-body-color: var(--body-text-color);
+  --bs-font-sans-serif: var(--font-body);
+  --bs-link-color: var(--primary-color);
+  --bs-border-radius: var(--radius);
+}
