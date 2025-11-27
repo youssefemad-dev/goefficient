@@ -33,52 +33,91 @@ export default function MusicPlayer() {
     <>
       {/* Toggle button (always visible) */}
       <button
+        className={`player-toggle ${collapsed ? "collapsed" : "open"}`}
         onClick={toggleCollapsed}
         aria-label={collapsed ? "Show music player" : "Hide music player"}
-        style={{
-          position: "fixed",
-          right: 16,
-          bottom: collapsed ? 6 : 6,
-          zIndex: 1060,
-          width: 40,
-          height: 40,
-          borderRadius: "50%",
-          border: "none",
-          backgroundColor: "#3f3bce",
-          color: "#fff",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          boxShadow: "0 4px 12px rgba(0,0,0,0.12)",
-          cursor: "pointer",
-        }}
       >
         {collapsed ? <FaArrowUp /> : <FaArrowDown />}
       </button>
 
       <style>{`
-        /* Use the input's background (gradient) for the filled track. Hide native track backgrounds so gradient is visible */
+        /* Volume range styling */
         .volume-range { appearance: none; -webkit-appearance: none; background: transparent; }
         .volume-range::-webkit-slider-runnable-track { height: 6px; background: transparent; border-radius: 999px; }
         .volume-range::-webkit-slider-thumb { -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #3f3bce; margin-top: -3px; box-shadow: 0 0 0 4px rgba(63,59,206,0.12); }
-        /* Firefox: make native track transparent so input background gradient shows */
         .volume-range::-moz-range-track { height: 6px; background: transparent; border-radius: 999px; }
         .volume-range::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: #3f3bce; border: none; }
         .volume-range:focus { outline: none; }
 
-        /* Prev/Next control button styling */
+        /* Control button styling */
         .ctrl-btn {
           background-color: transparent !important;
           color: #3f3bce !important;
           border-color: #3f3bce !important;
         }
-          .ctrl-btn svg { display: block; }
-          /* Hover: swap to white background and purple icon */
-          .ctrl-btn:hover {
-            background-color: #3f3bce !important;
-            color: #fff !important;
-            border-color: #3f3bce !important;
+        .ctrl-btn svg { display: block; }
+        .ctrl-btn:hover {
+          background-color: #3f3bce !important;
+          color: #fff !important;
+          border-color: #3f3bce !important;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+          .music-player-container {
+            padding-left: 12px !important;
+            padding-right: 12px !important;
           }
+          .music-info {
+            max-width: 120px;
+          }
+          .volume-controls {
+            display: none !important;
+          }
+          .player-controls {
+            position: static !important;
+            transform: none !important;
+          }
+        }
+
+        @media (max-width: 576px) {
+          .music-info {
+            max-width: 80px;
+          }
+          .ctrl-btn {
+            padding: 4px 8px !important;
+          }
+          .play-btn {
+            width: 40px !important;
+            height: 40px !important;
+          }
+        }
+      
+        /* Floating toggle (fixed button) */
+        .player-toggle {
+          position: fixed;
+          right: 16px;
+          bottom: 6px;
+          z-index: 1060;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          border: none;
+          background-color: #3f3bce;
+          color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+          cursor: pointer;
+          transition: bottom 220ms ease;
+        }
+        @media (max-width: 768px) {
+          .player-toggle.open { bottom: 86px; }
+        }
+        @media (max-width: 576px) {
+          .player-toggle.open { bottom: 76px; }
+        }
       `}</style>
 
       <div
@@ -87,22 +126,24 @@ export default function MusicPlayer() {
           transform: collapsed ? "translateY(100%)" : "translateY(0)",
           transition: "transform 240ms ease",
           borderTop: "1px solid rgba(0,0,0,0.06)",
-          zIndex: 1050,
-          backgroundColor: "var(--bg-color)",
+          /* Play/Pause button styling: default purple background with white icon,
+             on hover show white background and purple icon */
         }}
       >
         <div
-          className="d-flex align-items-center justify-content-between h-100 container"
+          className="d-flex align-items-center justify-content-between h-100 container music-player-container"
           style={{
             height: 64,
             position: "relative",
             paddingLeft: "160px",
             paddingRight: "160px",
             padding: "12px 0",
+            margin: "0 auto",
           }}
         >
+          {/* Track Info */}
           <div
-            className="d-flex align-items-center"
+            className="d-flex align-items-center music-info"
             style={{ minWidth: 0, cursor: "pointer" }}
             title="Player"
           >
@@ -148,7 +189,9 @@ export default function MusicPlayer() {
             </div>
           </div>
 
+          {/* Playback Controls */}
           <div
+            className="player-controls"
             style={{
               position: "absolute",
               left: "50%",
@@ -174,7 +217,7 @@ export default function MusicPlayer() {
               </svg>
             </button>
             <button
-              className="btn btn-primary rounded-circle d-flex align-items-center justify-content-center"
+              className="btn btn-primary rounded-circle d-flex align-items-center justify-content-center play-btn"
               onClick={togglePlay}
               style={{
                 width: "48px",
@@ -206,8 +249,9 @@ export default function MusicPlayer() {
             </button>
           </div>
 
-          <div className="d-flex align-items-center" style={{ minWidth: 120 }}>
-            <button className="btn  btn-sm me-2" onClick={toggleMute}>
+          {/* Volume Controls */}
+          <div className="d-flex align-items-center volume-controls" style={{ minWidth: 120 }}>
+            <button className="btn btn-sm me-2" onClick={toggleMute}>
               {isMuted || volume === 0 ? (
                 <FaVolumeMute
                   size={19}

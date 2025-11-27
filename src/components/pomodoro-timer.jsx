@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react"
+import { updateStreak } from "../utils/streak"
 import "./pomodoro-timer.css"
 
 export function PomodoroTimer() {
@@ -22,10 +23,15 @@ export function PomodoroTimer() {
             }, 1000)
         } else if (remainingSeconds === 0 && isRunning) {
             setIsRunning(false)
+            
+            // Update streak when completing a focus session
+            if (sessionType === "focus") {
+                updateStreak('pomodoroStreak');
+            }
         }
 
         return () => clearInterval(interval)
-    }, [isRunning, remainingSeconds])
+    }, [isRunning, remainingSeconds, sessionType])
 
     const handleSessionChange = (type) => {
         setSessionType(type)

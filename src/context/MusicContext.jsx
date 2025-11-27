@@ -1,12 +1,6 @@
-import React, {
-  createContext,
-  useState,
-  useRef,
-  useEffect,
-  useContext,
-} from "react";
+import React, { useState, useRef, useEffect, useCallback, createContext, useContext } from "react";
 
-const MusicContext = createContext(null);
+export const MusicContext = createContext(null);
 
 const tracks = [
   {
@@ -19,91 +13,91 @@ const tracks = [
     id: 2,
     title: "Peaceful Rain",
     artist: "Chill Beats",
-    url: "https://cdn.pixabay.com/audio/2022/03/10/audio_c8c4b8471c.mp3",
+    url: "https://www.bensound.com/bensound-music/bensound-slowmotion.mp3",
   },
   {
     id: 3,
     title: "Soft Focus",
     artist: "Study Session",
-    url: "https://cdn.pixabay.com/audio/2022/11/22/audio_9e6757c0e7.mp3",
+    url: "https://www.bensound.com/bensound-music/bensound-tenderness.mp3",
   },
   {
     id: 4,
     title: "Calm Thoughts",
     artist: "Lofi Dreams",
-    url: "https://cdn.pixabay.com/audio/2023/02/28/audio_d0684bc7c0.mp3",
+    url: "https://www.bensound.com/bensound-music/bensound-creativeminds.mp3",
   },
   {
     id: 5,
     title: "Study Atmosphere",
     artist: "Ambient Lofi",
-    url: "https://cdn.pixabay.com/audio/2022/08/02/audio_884fe70c21.mp3",
+    url: "https://www.bensound.com/bensound-music/bensound-anewbeginning.mp3",
   },
   {
     id: 6,
     title: "Gentle Waves",
     artist: "Chill Vibes",
-    url: "https://cdn.pixabay.com/audio/2022/10/25/audio_730ca8ce8c.mp3",
+    url: "https://www.bensound.com/bensound-music/bensound-sunny.mp3",
   },
   {
     id: 7,
     title: "Late Night Study",
     artist: "Midnight Lofi",
-    url: "https://cdn.pixabay.com/audio/2023/03/17/audio_c4c23e8b6a.mp3",
+    url: "https://www.bensound.com/bensound-music/bensound-memories.mp3",
   },
   {
     id: 8,
     title: "Dreamy Clouds",
     artist: "Study Beats",
-    url: "https://cdn.pixabay.com/audio/2022/09/12/audio_92c0e08240.mp3",
+    url: "https://www.bensound.com/bensound-music/bensound-inspired.mp3",
   },
   {
     id: 9,
     title: "Cozy Corner",
     artist: "Lofi Chill",
-    url: "https://cdn.pixabay.com/audio/2023/01/11/audio_e5b0c8e8cd.mp3",
+    url: "https://www.bensound.com/bensound-music/bensound-jazzyfrenchy.mp3",
   },
   {
     id: 10,
     title: "Tranquil Mind",
     artist: "Focus Music",
-    url: "https://cdn.pixabay.com/audio/2022/06/15/audio_2ab0e99e46.mp3",
+    url: "https://www.bensound.com/bensound-music/bensound-littleidea.mp3",
   },
   {
     id: 11,
     title: "Silent Library",
     artist: "Study Lofi",
-    url: "https://cdn.pixabay.com/audio/2023/04/22/audio_8f8c9e2b14.mp3",
+    url: "https://www.bensound.com/bensound-music/bensound-cute.mp3",
   },
   {
     id: 12,
     title: "Soft Whispers",
     artist: "Calm Beats",
-    url: "https://cdn.pixabay.com/audio/2022/12/08/audio_4f9c0e8a93.mp3",
+    url: "https://www.bensound.com/bensound-music/bensound-november.mp3",
   },
   {
     id: 13,
     title: "Moonlight Study",
     artist: "Night Lofi",
-    url: "https://cdn.pixabay.com/audio/2023/05/14/audio_6e3b8c9f21.mp3",
+    url: "https://www.bensound.com/bensound-music/bensound-clearday.mp3",
   },
   {
     id: 14,
     title: "Rainy Window",
     artist: "Ambient Study",
-    url: "https://cdn.pixabay.com/audio/2022/07/19/audio_3d8a4c7e65.mp3",
+    url: "https://www.bensound.com/bensound-music/bensound-buddy.mp3",
   },
   {
     id: 15,
     title: "Deep Concentration",
     artist: "Focus Beats",
-    url: "https://cdn.pixabay.com/audio/2023/06/03/audio_7b9f2d8c44.mp3",
+    url: "https://www.bensound.com/bensound-music/bensound-acousticbreeze.mp3",
   },
   {
     id: 16,
     title: "Evening Breeze",
     artist: "Lofi Relax",
-    url: "https://cdn.pixabay.com/audio/2022/04/26/audio_2c8f9e3a57.mp3",
+    url: "https://www.bensound.com/bensound-music/bensound-ukulele.mp3",
   },
 ];
 
@@ -115,6 +109,18 @@ export function MusicProvider({ children }) {
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(50);
   const [isMuted, setIsMuted] = useState(false);
+
+  const handleNext = useCallback(() => {
+    setCurrentTrack((prev) => (prev + 1) % tracks.length);
+    setIsPlaying(true);
+    setTimeout(() => audioRef.current?.play(), 100);
+  }, []);
+
+  const handlePrevious = useCallback(() => {
+    setCurrentTrack((prev) => (prev - 1 + tracks.length) % tracks.length);
+    setIsPlaying(true);
+    setTimeout(() => audioRef.current?.play(), 100);
+  }, []);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -133,8 +139,7 @@ export function MusicProvider({ children }) {
       audio.removeEventListener("loadedmetadata", updateDuration);
       audio.removeEventListener("ended", handleEnded);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentTrack]);
+  }, [currentTrack, handleNext]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -150,18 +155,6 @@ export function MusicProvider({ children }) {
     else audio.play();
 
     setIsPlaying((p) => !p);
-  };
-
-  const handleNext = () => {
-    setCurrentTrack((prev) => (prev + 1) % tracks.length);
-    setIsPlaying(true);
-    setTimeout(() => audioRef.current?.play(), 100);
-  };
-
-  const handlePrevious = () => {
-    setCurrentTrack((prev) => (prev - 1 + tracks.length) % tracks.length);
-    setIsPlaying(true);
-    setTimeout(() => audioRef.current?.play(), 100);
   };
 
   const handleSeek = (value) => {
@@ -212,8 +205,14 @@ export function MusicProvider({ children }) {
   );
 }
 
+/**
+ * Custom hook to access the Music context
+ * @returns {Object} Music context value
+ */
 export function useMusic() {
-  const ctx = useContext(MusicContext);
-  if (!ctx) throw new Error("useMusic must be used within MusicProvider");
-  return ctx;
+  const context = useContext(MusicContext);
+  if (!context) {
+    throw new Error('useMusic must be used within MusicProvider');
+  }
+  return context;
 }
