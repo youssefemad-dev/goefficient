@@ -59,7 +59,7 @@ body {
 }
 
 .btn.primary {
-  background: var(--primary);
+  background: linear-gradient(135deg, #544a91 0%, #3312da 100%);
   color: white;
 }
 

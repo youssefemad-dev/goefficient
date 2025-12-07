@@ -68,7 +68,7 @@ export default function RegisterPage() {
             <input
               type="text"
               id="name"
-              placeholder="John Doe"
+              placeholder="Your full name"
               value={name}
               onChange={(e) => setName(e.target.value)}
               disabled={loading}

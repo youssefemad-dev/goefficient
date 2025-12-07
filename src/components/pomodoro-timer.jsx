@@ -68,73 +68,59 @@ export function PomodoroTimer() {
     }   
 
     return (
-        <div>
-            {/* Top Icons Placeholder */}
-            
+    <div className="flex flex-col items-center w-full max-w-lg mx-auto p-4 space-y-6">
+        
 
-            {/* Session Type Tabs */}
-            <div className="flex gap-6 text-center">
-                {["focus", "shortBreak", "longBreak"].map((type) => {
-                    const labels = {
-                        focus: "Focus",
-                        shortBreak: "Short Break",
-                        longBreak: "Long Break",
-                    }
+        {/* Added flex-wrap and responsive gap */}
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-6 text-center">
+            {["focus", "shortBreak", "longBreak"].map((type) => {
+                const labels = {
+                    focus: "Focus",
+                    shortBreak: "Short Break",
+                    longBreak: "Long Break",
+                }
 
-
-
-                    return (
-                        <button
-                            key={type}
-                            onClick={() => handleSessionChange(type)}
-                            className={`pomo-mode-tab ${sessionType === type ? "active" : ""}`}
-                        >
-                            {labels[type]}
-                        </button>
-                    )
-                })}
-            </div>
-
-
-
-            {/* Timer Display */}
-              <div className="flex gap-6 text-center">
-                <div className="timer">{formatTime(remainingSeconds)}</div>
-            </div>
-
-
-
-            {/* Quick Add Buttons */}
-              <div className="flex gap-6 text-center">
-                {[25, 10, 5, 1].map((mins) => (
+                return (
                     <button
-                        key={mins}
-                        onClick={() => handleAddTime(mins)}
-                        disabled={isRunning}
-                        className="btns"
+                        key={type}
+                        onClick={() => handleSessionChange(type)}
+                        className={`pomo-mode-tab ${sessionType === type ? "active" : ""}`}
                     >
-                        + {mins} min
+                        {labels[type]}
                     </button>
-                ))}
-            </div>
-
-            {/* Start Button */}
-
-            <div className="flex gap-6 text-center">
-                <button onClick={toggleTimer} className="pomo-start-btn">
-                    {isRunning ? "Pause" : "Start"}
-                </button>
-
-                <button onClick={handleReset} className="pomo-reset-btn">
-                    Reset
-                </button>
-                
-            </div>
-
-            
-
-
-            
+                )
+            })}
         </div>
-    )
+
+        {/* Timer Display */}
+        <div className="flex justify-center w-full text-center ">
+            <div className="timer">{formatTime(remainingSeconds)}</div>
+        </div>
+
+        {/* Quick Add Buttons */}
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-6 text-center">
+            {[25, 10, 5, 1].map((mins) => (
+                <button
+                    key={mins}
+                    onClick={() => handleAddTime(mins)}
+                    disabled={isRunning}
+                    className="btns"
+                >
+                    + {mins} min
+                </button>
+            ))}
+        </div>
+
+        {/* Start Button */}
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-6 text-center w-full">
+            <button onClick={toggleTimer} className="pomo-start-btn">
+                {isRunning ? "Pause" : "Start"}
+            </button>
+
+            <button onClick={handleReset} className="pomo-reset-btn">
+                Reset
+            </button>
+        </div>
+    </div>
+)
 }

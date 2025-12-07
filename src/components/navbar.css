@@ -4,6 +4,13 @@
     padding: 0.75rem 1rem;
     transition: var(--transition-fast);
 }
+.navbar-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    mix-blend-mode: multiply;
+    background-color: transparent;
+}
 
 .navbar-brand {
     color: var(--primary-color);
