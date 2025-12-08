@@ -22,65 +22,49 @@
   font-variant-numeric: tabular-nums;
 }
 
-
-/* --- The Individual Tabs --- */
 .pomo-mode-tab {
-  /* Layout */
   margin-top: 50px;
   padding: 10px 24px;
   border: none;
-  background: transparent;    /* Transparent by default */
-  border-radius: 40px;        /* Match container curvature */
+  background: transparent;
+  border-radius: 40px;
   
-  /* Typography */
   font-family: "Inter", sans-serif;
   font-size: 15px;
   font-weight: 600;
-  color: #7c7c9a;             /* Muted gray-purple for inactive text */
+  color: #7c7c9a;
   
-  /* Interaction */
   cursor: pointer;
   outline: none;
   
-  /* The Smooth Transition */
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* "Springy" animation */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Hover State for Inactive Tabs */
 .pomo-mode-tab:hover:not(.active) {
   color: #4b36c4;
-  background-color: rgba(75, 54, 196, 0.05); /* Very faint hover tint */
+  background-color: rgba(75, 54, 196, 0.05);
 }
 
-
-/* --- The Active State (The Floating Card) --- */
 .pomo-mode-tab.active {
-  background-color: #ffffff;  /* White background pops out */
-  color: #4b36c4;             /* Dark Blue text */
+  background-color: #ffffff;
+  color: #4b36c4;
   
-  /* The Shadow makes it look like it's floating */
   box-shadow: 0 4px 12px -2px rgba(75, 54, 196, 0.2); 
   
-  transform: scale(1.05);     /* Slight zoom for emphasis */
+  transform: scale(1.05);
 }
 
 .btns {
-  /* Layout & Spacing */
   display: inline-block;
   padding: 14px 32px;
   margin: 12px 8px;
   
-  /* Visuals */
   border: none;
-  border-radius: 12px; /* Slightly softer corners */
+  border-radius: 12px;
   
-  /* THE VIBRANT DARK BLUE GRADIENT */
-  /* Based on the "Start" button in the image (#4b36c4) */
-  /* Flows from deep blue to a slightly lighter, richer blue */
   background: linear-gradient(135deg, #544a91 0%, #3312da 100%);
   color: white;
   
-  /* Typography */
   font-family: "Inter", sans-serif;
   font-size: 15px;
   font-weight: 600;
@@ -90,53 +74,39 @@
   cursor: pointer;
   user-select: none;
   
-  /* Modern Interactions */
   transition: filter 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   
-  /* Colored Shadow (Dark Blue Glow) */
   box-shadow: 0 10px 20px -10px rgba(57, 27, 224, 0.5);
 }
 
-
-/* Hover State: Lift & Brighten */
 .btns:hover {
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 15px 25px -10px rgba(190, 189, 197, 0.6); /* Shadow grows/darkens */
-  filter: brightness(1.1); /* Makes the blue pop even more */
+  box-shadow: 0 15px 25px -10px rgba(190, 189, 197, 0.6);
+  filter: brightness(1.1);
 }
 
-
-/* Active State: Click Press */
 .btns:active {
   transform: translateY(-1px);
   box-shadow: 0 5px 10px -5px rgba(51, 23, 209, 0.4);
   filter: brightness(0.95);
 }
 
-
-
-/* --- 1. THE HERO: Start Button (Dark Blue) --- */
 .pomo-start-btn {
-  /* Size & Text */
-  padding: 12px 30px;/* Slightly larger for emphasis */
+  padding: 12px 30px;
   font-size: 22px;
   font-weight: 700;
   font-family: "Inter", sans-serif;
   letter-spacing: 0.5px;
   
-  /* Gradient & Color */
   background: linear-gradient(135deg, #544a91 0%, #3312da 100%);
   color: #ffffff;
   
-  /* Shape & Border */
   border: none;
-  border-radius: 50px; /* Full pill shape */
+  border-radius: 50px;
   
-  /* Interaction & Layout */
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth spring animation */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
-  /* The "Glow" Shadow */
   box-shadow: 0 12px 24px -10px rgba(75, 54, 196, 0.6);
 }
 
@@ -151,14 +121,12 @@
   box-shadow: 0 5px 10px -5px rgba(75, 54, 196, 0.4);
 }
 
-/* --- 3. THE HELPER: Reset Button (Soft Lavender) --- */
 .pomo-reset-btn {
   padding: 14px 40px;
   font-size: 18px;
   font-weight: 600;
   font-family: "Inter", sans-serif;
   
-  /* Light background so it doesn't compete with Start */
   background-color: #eeefff;
   color: #4b36c4;
   
